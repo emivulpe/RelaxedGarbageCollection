@@ -14,7 +14,7 @@ public class Main {
 		String input=inputStream+"";
 		Scanner inputScanner=null;
 		try {
-			InputStream fileStream = new FileInputStream("C:/Users/Emi/Desktop/traces/java-mandelbrot_500.trace.gz");
+			InputStream fileStream = new FileInputStream("C:/Users/Emi/Desktop/traces/normal.tar.gz");
 			//InputStream gzipStream = new GZIPInputStream(fileStream);
 			inputScanner=new Scanner (fileStream);
 		}

@@ -2,9 +2,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-
+//llllllll
 public class MainTest {
-
+	
+	//problems
 	@Test
 	public void test1() {
 		assertTrue(Main.testing("C:/Users/Emi/Desktop/traces/normal.txt.tar.gz"));
