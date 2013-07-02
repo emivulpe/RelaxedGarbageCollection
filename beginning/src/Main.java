@@ -1,91 +1,120 @@
 import java.util.zip.GZIPInputStream;
 import java.io.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Stack;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 	
 	public static void main(String[] arg){
 		
-		InputStream inputStream=System.in;
-		String input=inputStream+"";
+		ErrorLogger logger=new ErrorLogger();
 		Scanner inputScanner=null;
+		
+		
+		
 		try {
-			InputStream fileStream = new FileInputStream("C:/Users/Emi/Desktop/traces/normal.tar.gz");
-			//InputStream gzipStream = new GZIPInputStream(fileStream);
-			inputScanner=new Scanner (fileStream);
+			InputStream fileStream = new FileInputStream(arg[0]);
+			InputStream gzipStream = new GZIPInputStream(fileStream);
+			inputScanner=new Scanner (gzipStream);
 		}
-		catch (FileNotFoundException e){
-			System.out.println("Cannot open the file "+input);
+
+		
+		
+		catch (IOException io){
+			System.out.println("IOException");
 			System.exit(0);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		HashMap<String, Stack<Event>> hash=new HashMap<String, Stack<Event> >();
-		//int count=0;
+
+		
+		
+		
+		
+		HashMap<String, ObjectEventRecord> hash=new HashMap<String, ObjectEventRecord >();
+		System.currentTimeMillis();
+		
 		while (inputScanner.hasNextLine()){
-			//count++;
+
 			String nextLine=inputScanner.nextLine();
-			System.out.println(nextLine+"nextline");
-			Scanner lineScanner=new Scanner(nextLine);
-			Event event=new Event(lineScanner);
-			System.out.println(event.status+event.id);
-//			System.out.println(event.id);
-//			System.out.println(hash.get(event.id)+"Opkn");
-//			System.out.println(hash.get(event.id)==null+"null12");
-//			System.out.println(event.status.equalsIgnoreCase("A")+"=A");
-			//System.out.println(event.status+"status");
+			
+			
+			
+			System.out.println(nextLine+" nextline");
+			
+			
+			Event event=new Event(nextLine);
+
 			
 			
 			//free and status "A"
 			if  (hash.get(event.id)==null && event.status.equalsIgnoreCase("A")){
 				
-				Stack s=new Stack<Event>();
-				//s.push("i");
-				System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooo");
-				s.push(event);
-				hash.put(event.id, s);
-				//System.out.println(hash.get(event.id)+"Wqds");
+				ObjectEventRecord record=new ObjectEventRecord(event);
+				hash.put(event.id, record);
+				System.out.println("Event " + event.id +" added to the records for the first time");
+				System.out.println();
+				System.out.println();
 			}
+			
+			
 			
 			
 			//free but not status "A"
 			else if (hash.get(event.id)==null && !event.status.equalsIgnoreCase("A")){
-				System.out.println("Error1");
+
+				Error notBornError=new Error("The object is not born so you cannot update it!");
+				logger.getLogger().log(Level.SEVERE,"The object with id "+event.id+" is not born so you cannot update it!");
+				
+				System.out.println();
+				System.out.println();
 			}
+			
+			
 			
 			
 			
 			//occupied and alive
-			else if (!hash.get(event.id).isEmpty() && !hash.get(event.id).peek().status.equalsIgnoreCase("D")){
-				hash.get(event.id).push(event);
+			else if (hash.get(event.id)!=null && hash.get(event.id).isAlive()){
+				
+				ObjectEventRecord record=hash.get(event.id);
+				record.updateRecord(event);
+				hash.put(event.id, record);
+				
+				System.out.println("Event " + event.id +" was updated in the records");
+				
+				System.out.println();
+				System.out.println();
 					
 					
-				//}
 			}
+			
+			
 			
 			
 			//occupied but dead
-			else if (!hash.get(event.id).isEmpty() && hash.get(event.id).peek().status.equalsIgnoreCase("D")){
-				System.out.println ("error2");
+			else if (hash.get(event.id)!=null && !hash.get(event.id).isAlive()){				
+				
+				Error DeadError=new Error("The object is dead so you cannot update it!");
+				logger.getLogger().log(Level.SEVERE,"The object with id "+event.id+" is dead so you cannot update it!");
+				
+				System.out.println();
+				System.out.println();
 			}
-			//else if (event.status.equalsIgnoreCase("U")&&)
-			System.out.println(hash.get(event.id)+event.id);
-			
-			
-			
-		
-		
+	
 	}
-		System.out.println(hash+"pppppppppppppppppppppppppp");
-		
 	}
 		
+	
 		
+		
+	
+	
+	
+	
+	
+	
 		public static boolean testing(String path){
 			boolean output=true;
 			Scanner inputScanner=null;
@@ -94,77 +123,60 @@ public class Main {
 				InputStream gzipStream = new GZIPInputStream(fileStream);
 				inputScanner=new Scanner (gzipStream);
 			}
-			catch (FileNotFoundException e){
+
+			catch (IOException e){
 				System.out.println("Cannot open the file ");
-				System.exit(0);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			HashMap<String, Stack<Event>> hash=new HashMap<String, Stack<Event> >();
-			//int count=0;
-	
-			while (inputScanner.hasNextLine()&&output){
-				//count++;
-				String nextLine=inputScanner.nextLine();
-				System.out.println(nextLine+"nextline");
-				Scanner lineScanner=new Scanner(nextLine);
+				return false;
+			} 
+
+			HashMap<String, ObjectEventRecord> hash=new HashMap<String, ObjectEventRecord >();
+			while (inputScanner.hasNextLine()){
 				
-				Event event=new Event(lineScanner);
-				System.out.println(event.status+event.id);
-//				System.out.println(event.id);
-//				System.out.println(hash.get(event.id)+"Opkn");
-//				System.out.println(hash.get(event.id)==null+"null12");
-//				System.out.println(event.status.equalsIgnoreCase("A")+"=A");
-				//System.out.println(event.status+"status");
+				String nextLine=inputScanner.nextLine();
+				System.out.println(nextLine+" nextline");
+				Event event=new Event(nextLine);
+
 				
 				
 				//free and status "A"
 				if  (hash.get(event.id)==null && event.status.equalsIgnoreCase("A")){
 					
-					Stack s=new Stack<Event>();
-					//s.push("i");
-					System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooo");
-					s.push(event);
-					hash.put(event.id, s);
-					//System.out.println(hash.get(event.id)+"Wqds");
+					ObjectEventRecord record=new ObjectEventRecord(event);
+					hash.put(event.id, record);
 				}
 				
 				
 				//free but not status "A"
 				else if (hash.get(event.id)==null && !event.status.equalsIgnoreCase("A")){
-					System.out.println("Error1");
-					output=false;
+					System.out.println("Error1: object not born");
+					return false;
 				}
 				
 				
 				
 				//occupied and alive
-				else if (!hash.get(event.id).isEmpty() && !hash.get(event.id).peek().status.equalsIgnoreCase("D")){
-					hash.get(event.id).push(event);
-						
-						
-					//}
+				else if (hash.get(event.id)!=null && hash.get(event.id).isAlive()){
+					hash.get(event.id).updateRecord(event);
 				}
 				
 				
 				//occupied but dead
-				else if (!hash.get(event.id).isEmpty() && hash.get(event.id).peek().status.equalsIgnoreCase("D")){
-					System.out.println ("error2");
-					output=false;
+				else if (hash.get(event.id)!=null && !hash.get(event.id).isAlive()){
+					System.out.println ("error2: dead object");
+					return false;
 				}
-				//else if (event.status.equalsIgnoreCase("U")&&)
-				System.out.println(hash.get(event.id)+event.id);
-				
+
 				
 				
 				
 			
 			
 		}
+
 			return output;
 			
 		}
+			
 
 }
 
