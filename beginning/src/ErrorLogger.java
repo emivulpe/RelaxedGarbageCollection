@@ -12,7 +12,7 @@ public class ErrorLogger {
 	 
 	 public ErrorLogger(){
 		 try { 
-		 fh=new FileHandler("loggerExample.log"); 
+		 fh=new FileHandler("logger.log"); 
 		 } 
 		 
 		 
