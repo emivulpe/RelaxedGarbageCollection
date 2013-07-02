@@ -33,7 +33,8 @@ public class Main {
 		
 		
 		HashMap<String, ObjectEventRecord> hash=new HashMap<String, ObjectEventRecord >();
-		System.currentTimeMillis();
+		long startOfProcess=System.currentTimeMillis();
+		int numberOfIllegalAccesses=0;
 		
 		while (inputScanner.hasNextLine()){
 
@@ -66,6 +67,7 @@ public class Main {
 
 				Error notBornError=new Error("The object is not born so you cannot update it!");
 				logger.getLogger().log(Level.SEVERE,"The object with id "+event.id+" is not born so you cannot update it!");
+				numberOfIllegalAccesses++;
 				
 				System.out.println();
 				System.out.println();
@@ -98,12 +100,20 @@ public class Main {
 				
 				Error DeadError=new Error("The object is dead so you cannot update it!");
 				logger.getLogger().log(Level.SEVERE,"The object with id "+event.id+" is dead so you cannot update it!");
+				numberOfIllegalAccesses++;
 				
 				System.out.println();
 				System.out.println();
 			}
 	
 	}
+		long endOfProcess=System.currentTimeMillis();
+		long timeTakenInMillisecs=endOfProcess-startOfProcess;
+		int seconds = (int) (timeTakenInMillisecs / 1000) % 60 ;
+		int minutes = (int) ((timeTakenInMillisecs / (1000*60)) % 60);
+		int hours   = (int) ((timeTakenInMillisecs / (1000*60*60)) % 24);
+		System.out.printf("It took %d hours %d minutes %d seconds to process 11MB file\n",hours,minutes,seconds);
+		System.out.printf("Number of recorded errors, i.e. trying to access not initialised or dead object %d \n",numberOfIllegalAccesses);
 	}
 		
 	
