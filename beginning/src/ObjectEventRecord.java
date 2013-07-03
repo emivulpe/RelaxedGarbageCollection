@@ -1,60 +1,54 @@
-
 public class ObjectEventRecord {
 	private Event lastEvent;
-	private int numEvents, numUpdates,numMethodCalls;
-	boolean isAlive=false;
-	
-	
-	
-	public ObjectEventRecord(Event e){
-		isAlive=true;
-		lastEvent=e;
-		numEvents=1;
-		numUpdates=0;
-		numMethodCalls=0;
+	private int numEvents, numUpdates, numMethodCalls;
+	private boolean isAlive = false;
 
-		
+	public ObjectEventRecord(final Event e) {
+		isAlive = true;
+		lastEvent = e;
+		numEvents = 1;
+		numUpdates = 0;
+		numMethodCalls = 0;
+
 	}
-	
-	
-	public int getNumEvents(){
+
+	public final int getNumEvents() {
 		return numEvents;
 	}
-	
-	public int getNumUpdates(){
+
+	public final int getNumUpdates() {
 		return numUpdates;
 	}
-	
-	public int getNumMethodCalls(){
+
+	public final int getNumMethodCalls() {
 		return numMethodCalls;
 	}
-	
-	public Event getLastEvent(){
+
+	public final Event getLastEvent() {
 		return lastEvent;
 	}
-	
-	public void updateRecord(Event e){
-		lastEvent=e;
+
+	public final void updateRecord(final Event e) {
+		lastEvent = e;
 		numEvents++;
-		if (e.status.equalsIgnoreCase("U")){
+		String currentEventStatus = e.getStatus();
+		if (currentEventStatus.equalsIgnoreCase("U")) {
 			numUpdates++;
 		}
-		if (e.status.equalsIgnoreCase("M")){
+		if (currentEventStatus.equalsIgnoreCase("M")) {
 			numMethodCalls++;
 		}
-		if (e.status.equalsIgnoreCase("D")){
-			isAlive=false;
+		if (currentEventStatus.equalsIgnoreCase("D")) {
+			isAlive = false;
 		}
-		
-		
-		
+
 	}
-	
-	public boolean isAlive(){
+
+	public final boolean isAlive() {
 		return isAlive;
 	}
-	
-	public String toString(){
-		return "Event: "+lastEvent;
+
+	public final String toString() {
+		return "Event: " + lastEvent;
 	}
 }
