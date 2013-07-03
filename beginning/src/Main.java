@@ -123,7 +123,8 @@ public class Main {
 				deadErrors++;
 				deadObjects.add(currentEventID);
 
-				System.out.println();
+				System.out.println(
+						"The object is dead so you cannot update it!");
 				System.out.println();
 			}
 
@@ -132,7 +133,7 @@ public class Main {
 		long timeTakenInMillisecs = endOfProcess - startOfProcess;
 		long timeTakenInSeconds = timeTakenInMillisecs / 1000;
 
-		long linesPerSecond = timeTakenInSeconds / 12782052;
+		long linesPerSecond = 12782052 / timeTakenInSeconds;
 		int seconds = (int) (timeTakenInMillisecs / 1000) % 60;
 		int minutes = (int) ((timeTakenInMillisecs / (1000 * 60)) % 60);
 		int hours = (int) ((timeTakenInMillisecs / (1000 * 60 * 60)) % 24);
@@ -144,12 +145,12 @@ public class Main {
 						numberOfIllegalAccesses);
 		System.out.println("The program reads " + linesPerSecond
 				+ " lines per second");
-		System.out.println("Number of unborn accesses" + notBornErrors);
+		System.out.println("Number of unborn accesses " + notBornErrors);
 		System.out
 				.println("Objects accessed before creation " + notBornObjects);
-		System.out.println("Number of dead accesses" + deadErrors);
+		System.out.println("Number of dead accesses " + deadErrors);
 		System.out.println("Objects accessed after death " + deadObjects);
-		System.out.println("Number of multiple creations" + multipleCreations);
+		System.out.println("Number of multiple creations " + multipleCreations);
 		System.out.println("Objects created more than once " + multipleObjects);
 
 
