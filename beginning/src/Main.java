@@ -32,7 +32,7 @@ public class Main {
 		
 		
 		
-		HashMap<String, ObjectEventRecord> hash=new HashMap<String, ObjectEventRecord >();
+		HashMap<String, ObjectEventRecord> hash=new HashMap();
 		long startOfProcess=System.currentTimeMillis();
 		int numberOfIllegalAccesses=0;
 		
@@ -54,7 +54,7 @@ public class Main {
 				
 				ObjectEventRecord record=new ObjectEventRecord(event);
 				hash.put(event.id, record);
-				System.out.println("Event " + event.id +" added to the records for the first time");
+				System.out.println("Object " + event.id +" added to the records for the first time");
 				System.out.println();
 				System.out.println();
 			}
