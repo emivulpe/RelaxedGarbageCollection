@@ -144,6 +144,14 @@ public class Main {
 						numberOfIllegalAccesses);
 		System.out.println("The program reads " + linesPerSecond
 				+ " lines per second");
+		System.out.println("Number of unborn accesses" + notBornErrors);
+		System.out
+				.println("Objects accessed before creation " + notBornObjects);
+		System.out.println("Number of dead accesses" + deadErrors);
+		System.out.println("Objects accessed after death " + deadObjects);
+		System.out.println("Number of multiple creations" + multipleCreations);
+		System.out.println("Objects created more than once " + multipleObjects);
+
 
 	}
 
