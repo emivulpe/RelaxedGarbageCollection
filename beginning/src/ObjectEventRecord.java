@@ -48,6 +48,10 @@ public class ObjectEventRecord {
 		return isAlive;
 	}
 
+	public void killObject() {
+		isAlive = false;
+	}
+
 	public final String toString() {
 		return "Event: " + lastEvent;
 	}

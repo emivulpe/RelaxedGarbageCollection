@@ -6,6 +6,10 @@ public class Event {
 	private String allocationTime;
 	private String status;
 
+	// check must probably be enum as well
+	private String check = ""; // check the category in which the event falls so
+								// that it be handled correctly
+
 	public enum Status {
 		A, U, M, E, R, D
 	};
@@ -35,6 +39,14 @@ public class Event {
 
 	public String getStatus() {
 		return status;
+	}
+
+	public String getCheck() {
+		return check;
+	}
+
+	public void setCheck(String s) {
+		check = s;
 	}
 
 	public String toString() {
