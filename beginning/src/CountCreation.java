@@ -3,11 +3,14 @@ import java.util.Set;
 
 public class CountCreation implements EventHandler {
 	private int numCreations;
-	private Set created;
+	private Set<String> created;
+	//add a new variable int totalObjects in every count class for producing the report as percentage. is it a good idea?
+	private int totalObjects;
 
 	public CountCreation() {
-		created = new HashSet();
+		created = new HashSet<String>();
 		numCreations = 0;
+		
 	}
 
 	public int getNumCreations() {
@@ -33,6 +36,17 @@ public class CountCreation implements EventHandler {
 	@Override
 	public int getNumObjects() {
 
+		return created.size();
+	}
+
+	@Override
+	public String finalReport(float total) {
+		// TODO Auto-generated method stub
+		return created.size() / total * 100 + " % objects were created successfully";
+	}
+	
+	@Override
+	public int getTotalObjects() {
 		return created.size();
 	}
 

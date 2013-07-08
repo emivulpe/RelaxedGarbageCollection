@@ -20,16 +20,13 @@ public class Main {
 			InputStream fileStream = new FileInputStream(args[0]);
 			InputStream gzipStream = new GZIPInputStream(fileStream);
 			ETParser parser = new ETParser(gzipStream);
-			
+			parser.printReport();
 			long endOfProcess = System.currentTimeMillis();
 			long timeTakenInMillisecs = endOfProcess - startOfProcess;
 			long timeTakenInSeconds = timeTakenInMillisecs / 1000;
 			long linesPerSecond = parser.getLines() / timeTakenInSeconds;
 			
-			System.out.println(parser.getProportionProblems());
-			System.out.println(parser.getProportionDeadProblems());
-			System.out.println(parser.getProportionMultipleProblems());
-			System.out.println(parser.getProportionNotBornProblems());
+
 			System.out.println("The program reads " + linesPerSecond
 					+ " lines per second");
 		}

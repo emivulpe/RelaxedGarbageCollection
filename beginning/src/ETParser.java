@@ -21,7 +21,7 @@ public class ETParser {
 
 			String nextLine = inputScanner.nextLine();
 			lines++;
-			System.out.println(nextLine + " nextline");
+			//System.out.println(nextLine + " nextline");
 
 			Event event = new Event(nextLine);
 			String currentEventID = event.getID();
@@ -89,48 +89,22 @@ public class ETParser {
 	}
 
 	public float getTotalProcessedObjects() {
-		return handlers.get(0).getNumObjects()
-				+ handlers.get(3).getNumObjects();
+		float total=0;
+		for (EventHandler eh:handlers){
+			total+=eh.getTotalObjects();
+		}
+		return total;
 
 	}
-
-	public float getObjectsCausingErrors() {
-		return handlers.get(2).getNumObjects()
-				+ handlers.get(4).getNumObjects();
+	
+	
+	public void printReport(){
+		for (EventHandler eh:handlers) {
+			System.out.println(eh.finalReport(getTotalProcessedObjects()));
+		}
 	}
 
-	public String getProportionProblems() {
-		return (getObjectsCausingErrors() / getTotalProcessedObjects()) * 100
-				+ " % objects cause errors";
-	}
-
-	public float getNotBornErrors() {
-		return handlers.get(4).getNumObjects();
-	}
-
-	public float getDeadErrors() {
-		return handlers.get(2).getNumObjects();
-	}
-
-	public float getMultipleBirthErrors() {
-		return handlers.get(3).getNumObjects();
-	}
-
-	public String getProportionNotBornProblems() {
-		return (getNotBornErrors() / getTotalProcessedObjects()) * 100
-				+ " % objects cause not born errors";
-	}
-
-	public String getProportionDeadProblems() {
-		return (getDeadErrors() / getTotalProcessedObjects()) * 100
-				+ " % objects cause dead errors";
-	}
-
-	public String getProportionMultipleProblems() {
-		return (getMultipleBirthErrors() / getTotalProcessedObjects()) * 100
-				+ " % objects cause multiple birth errors";
-	}
-
+	
 	public void initialiseHandlers() {
 		EventHandler creation = new CountCreation();
 		registerHandler(creation);

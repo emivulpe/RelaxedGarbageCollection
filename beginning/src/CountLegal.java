@@ -2,11 +2,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CountLegal implements EventHandler {
-	private Set legals;
+	private Set<String> legals;
 	private int numLegals;
 
 	public CountLegal() {
-		legals = new HashSet();
+		legals = new HashSet<String>();
 		numLegals = 0;
 	}
 
@@ -33,6 +33,17 @@ public class CountLegal implements EventHandler {
 	public int getNumObjects() {
 
 		return legals.size();
+	}
+
+	@Override
+	public String finalReport(float total) {
+
+		return legals.size() / total * 100 + " % objects were updated successfully";
+	}
+	
+	@Override
+	public int getTotalObjects() {
+		return 0;
 	}
 
 }

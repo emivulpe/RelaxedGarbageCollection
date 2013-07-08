@@ -12,8 +12,16 @@ public interface EventHandler {
 	 * @param e
 	 *            event to be handled
 	 */
+	
+	
 	public void handle(Event e);
 
 	public int getNumObjects();
+	
+	public String finalReport(float totalObjects);
+	
+	public int getTotalObjects();
+	
+	
 
 }

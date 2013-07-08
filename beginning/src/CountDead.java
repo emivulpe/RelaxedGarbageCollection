@@ -3,11 +3,11 @@ import java.util.Set;
 
 public class CountDead implements EventHandler {
 
-	private Set dead;
+	private Set<String> dead;
 	private int numDead;
 
 	public CountDead() {
-		dead = new HashSet();
+		dead = new HashSet<String> ();
 		numDead = 0;
 	}
 
@@ -33,6 +33,17 @@ public class CountDead implements EventHandler {
 	public int getNumObjects() {
 
 		return dead.size();
+	}
+
+	@Override
+	public String finalReport(float total) {
+
+		return dead.size() / total * 100 + " % objects cause dead error";
+	}
+	
+	@Override
+	public int getTotalObjects() {
+		return 0;
 	}
 
 }

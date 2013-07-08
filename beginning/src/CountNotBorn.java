@@ -2,11 +2,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CountNotBorn implements EventHandler {
-	private Set notBorn;
+	private Set<String> notBorn;
 	private int numNotBorns;
 
 	public CountNotBorn() {
-		notBorn = new HashSet();
+		notBorn = new HashSet<String>();
 		numNotBorns = 0;
 	}
 
@@ -31,6 +31,16 @@ public class CountNotBorn implements EventHandler {
 
 	@Override
 	public int getNumObjects() {
+		return notBorn.size();
+	}
+
+	@Override
+	public String finalReport(float total) {
+		return notBorn.size() / total * 100 + " % objects cause not born error";
+	}
+
+	@Override
+	public int getTotalObjects() {
 		return notBorn.size();
 	}
 
