@@ -38,7 +38,7 @@ public class CountMultipleCreations implements EventHandler {
 	@Override
 	public String finalReport(float total) {
 		// TODO Auto-generated method stub
-		return multiples.size() / total * 100 + " % objects were created more than once";
+		return  (float)multiples.size() / total * 100 + " % objects were created more than once";
 	}
 	@Override
 	public int getTotalObjects() {

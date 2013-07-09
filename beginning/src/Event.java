@@ -1,23 +1,21 @@
 import java.util.Scanner;
 
-public class Event {
+public abstract class Event {
 
-	private String id;
-	private String allocationTime;
-	private String status;
+	protected String id;
+	protected String allocationTime;
+	protected String status;
+
 
 	// check must probably be enum as well
 	private String check = ""; // check the category in which the event falls so
 								// that it be handled correctly
 
-	public enum Status {
-		A, U, M, E, R, D
-	};
 
 	public Event(String line) {
 
 		Scanner scanner = new Scanner(line);
-		status = scanner.next();
+		String status=scanner.next();
 		allocationTime = scanner.next();
 		if (status.equalsIgnoreCase("A") || status.equalsIgnoreCase("R")
 				|| status.equalsIgnoreCase("D")) {
@@ -37,7 +35,8 @@ public class Event {
 		return allocationTime;
 	}
 
-	public String getStatus() {
+
+	public String getStatus(){
 		return status;
 	}
 
@@ -48,9 +47,8 @@ public class Event {
 	public void setCheck(String s) {
 		check = s;
 	}
+	
 
-	public String toString() {
-		return "status " + status + " id " + id;
-	}
+
 
 }

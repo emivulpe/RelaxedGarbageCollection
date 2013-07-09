@@ -38,7 +38,7 @@ public class CountDead implements EventHandler {
 	@Override
 	public String finalReport(float total) {
 
-		return dead.size() / total * 100 + " % objects cause dead error";
+		return  (float) dead.size() / total * 100 + " % objects cause dead error";
 	}
 	
 	@Override

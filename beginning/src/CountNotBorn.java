@@ -36,7 +36,7 @@ public class CountNotBorn implements EventHandler {
 
 	@Override
 	public String finalReport(float total) {
-		return notBorn.size() / total * 100 + " % objects cause not born error";
+		return  (float)notBorn.size() / total * 100 + " % objects cause not born error";
 	}
 
 	@Override

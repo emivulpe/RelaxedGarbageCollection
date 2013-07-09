@@ -8,11 +8,14 @@ public class ETParser {
 	private HashMap<String, ObjectEventRecord> hash;
 	private List<EventHandler> handlers;
 	private int lines;
+	private GlobalCounter global;
 
 	public ETParser(InputStream gzipStream) {
 		handlers = new ArrayList();
 		hash = new HashMap<String, ObjectEventRecord>();
 		lines=0;
+		global=GlobalCounter.getGlobalCounterInstance();
+		EventFactory factory=new EventFactory();
 
 		initialiseHandlers();
 		Scanner inputScanner = new Scanner(gzipStream);
@@ -21,52 +24,8 @@ public class ETParser {
 
 			String nextLine = inputScanner.nextLine();
 			lines++;
-			//System.out.println(nextLine + " nextline");
-
-			Event event = new Event(nextLine);
-			String currentEventID = event.getID();
-			String currentEventStatus = event.getStatus();
-			boolean existsInHashtable = hash.get(event.getID()) != null;
-
-			// free and status "A"
-			if (!existsInHashtable && currentEventStatus.equalsIgnoreCase("A")) {
-
-				ObjectEventRecord record = new ObjectEventRecord(event);
-				hash.put(currentEventID, record);
-				event.setCheck("creation");
-
-			}
-
-			// free but not status "A"
-			else if (!existsInHashtable
-					&& !currentEventStatus.equalsIgnoreCase("A")) {
-
-				event.setCheck("not born");
-
-			} else if (existsInHashtable && !hash.get(currentEventID).isAlive()) {
-
-				event.setCheck("dead");
-
-			}
-
-			// occupied and alive
-			else if (existsInHashtable && hash.get(currentEventID).isAlive()) {
-				ObjectEventRecord record = hash.get(currentEventID);
-				record.updateRecord(event);
-				hash.put(currentEventID, record);
-				event.setCheck("legal");
-
-			}
-
-			else if (existsInHashtable
-					&& currentEventStatus.equalsIgnoreCase("A")) {
-
-				event.setCheck("created");
-
-			}
-
-			// occupied but dead
-
+			System.out.println(nextLine + " nextline");
+			Event event=factory.createEvent(nextLine);
 			notifyHandlers(event);
 
 		}
@@ -88,12 +47,9 @@ public class ETParser {
 		handlers.add(eh);
 	}
 
-	public float getTotalProcessedObjects() {
-		float total=0;
-		for (EventHandler eh:handlers){
-			total+=eh.getTotalObjects();
-		}
-		return total;
+	public int getTotalProcessedObjects() {
+
+		return global.getNumObjects();
 
 	}
 	
@@ -106,6 +62,7 @@ public class ETParser {
 
 	
 	public void initialiseHandlers() {
+		registerHandler(global);
 		EventHandler creation = new CountCreation();
 		registerHandler(creation);
 		EventHandler legal = new CountLegal();
@@ -118,6 +75,9 @@ public class ETParser {
 		registerHandler(notBorns);
 		EventHandler logger = new ErrorLogger();
 		registerHandler(logger);
+		EventHandler livesize=new LiveSize();
+		registerHandler(livesize);
+		
 
 	}
 

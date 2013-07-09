@@ -193,75 +193,78 @@ public class Main {
 	//
 	//
 	// }
+	
+	
+	//this method doesn't work- Don't look at it please!
 
-	public static boolean testing(final String path) {
-		Scanner inputScanner = null;
-
-		try {
-			InputStream fileStream = new FileInputStream(path);
-			InputStream gzipStream = new GZIPInputStream(fileStream);
-			inputScanner = new Scanner(gzipStream);
-		}
-
-		catch (IOException io) {
-			System.out.println("IOException");
-			System.exit(0);
-		}
-
-		HashMap<String, ObjectEventRecord> hash = new HashMap();
-
-		while (inputScanner.hasNextLine()) {
-
-			String nextLine = inputScanner.nextLine();
-
-			System.out.println(nextLine + " nextline");
-
-			Event event = new Event(nextLine);
-			String currentEventID = event.getID();
-			String currentEventStatus = event.getStatus();
-
-			boolean existsInHashtable = hash.get(currentEventID) != null;
-
-			// free and status "A"
-			if (!existsInHashtable && currentEventStatus.equalsIgnoreCase("A")) {
-
-				ObjectEventRecord record = new ObjectEventRecord(event);
-				hash.put(currentEventID, record);
-
-			}
-
-			// free but not status "A"
-			else if (!existsInHashtable
-					&& !currentEventStatus.equalsIgnoreCase("A")) {
-
-				return false;
-
-			}
-
-			// occupied and alive
-			else if (existsInHashtable && hash.get(currentEventID).isAlive()) {
-
-				ObjectEventRecord record = hash.get(currentEventID);
-				record.updateRecord(event);
-				hash.put(currentEventID, record);
-
-			}
-
-			if (existsInHashtable && currentEventStatus.equalsIgnoreCase("A")) {
-
-				return false;
-
-			}
-
-			// occupied but dead
-			else if (existsInHashtable && !hash.get(currentEventID).isAlive()) {
-
-				return false;
-
-			}
-
-		}
-		return true;
-	}
+//	public static boolean testing(final String path) {
+//		Scanner inputScanner = null;
+//
+//		try {
+//			InputStream fileStream = new FileInputStream(path);
+//			InputStream gzipStream = new GZIPInputStream(fileStream);
+//			inputScanner = new Scanner(gzipStream);
+//		}
+//
+//		catch (IOException io) {
+//			System.out.println("IOException");
+//			System.exit(0);
+//		}
+//
+//		HashMap<String, ObjectEventRecord> hash = new HashMap();
+//
+//		while (inputScanner.hasNextLine()) {
+//
+//			String nextLine = inputScanner.nextLine();
+//
+//			System.out.println(nextLine + " nextline");
+//
+//			Event event = new Event(nextLine);
+//			String currentEventID = event.getID();
+//			String currentEventStatus = event.getStatus();
+//
+//			boolean existsInHashtable = hash.get(currentEventID) != null;
+//
+//			// free and status "A"
+//			if (!existsInHashtable && currentEventStatus.equalsIgnoreCase("A")) {
+//
+//				ObjectEventRecord record = new ObjectEventRecord(event);
+//				hash.put(currentEventID, record);
+//
+//			}
+//
+//			// free but not status "A"
+//			else if (!existsInHashtable
+//					&& !currentEventStatus.equalsIgnoreCase("A")) {
+//
+//				return false;
+//
+//			}
+//
+//			// occupied and alive
+//			else if (existsInHashtable && hash.get(currentEventID).isAlive()) {
+//
+//				ObjectEventRecord record = hash.get(currentEventID);
+//				record.updateRecord(event);
+//				hash.put(currentEventID, record);
+//
+//			}
+//
+//			if (existsInHashtable && currentEventStatus.equalsIgnoreCase("A")) {
+//
+//				return false;
+//
+//			}
+//
+//			// occupied but dead
+//			else if (existsInHashtable && !hash.get(currentEventID).isAlive()) {
+//
+//				return false;
+//
+//			}
+//
+//		}
+//		return true;
+//	}
 
 }

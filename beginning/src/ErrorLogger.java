@@ -1,24 +1,15 @@
-import java.io.IOException;
 
-//import java.util.logging.FileHandler;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//import java.util.logging.SimpleFormatter;
+
+import java.io.OutputStreamWriter;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import java.io.*;
-import java.sql.SQLException;
-import java.util.*;
 
 public class ErrorLogger implements EventHandler {
 	private final Logger logger = Logger.getLogger(ErrorLogger.class.getName());
 
-
-	//private FileHandler fh = null;
-	//private Logger logger1;
 
 	public ErrorLogger() {
 		ConsoleAppender ca = new ConsoleAppender();
@@ -26,23 +17,10 @@ public class ErrorLogger implements EventHandler {
 		ca.setWriter(new OutputStreamWriter(System.err));
 		ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
 		logger.addAppender(ca);
-		//		try {
-//
-//
-//			//fh = new FileHandler("logger.log");
-//
-//		}
-//
-//		catch (SecurityException | IOException e) {
-//			e.printStackTrace();
-//		}
-//
-////		Logger l = Logger.getLogger("");
-////		fh.setFormatter(new SimpleFormatter());
-////		l.addHandler(fh);
-////		l.setLevel(Level.SEVERE);
+
 
 	}
+	
 
 	public Logger getLogger() {
 		return logger;

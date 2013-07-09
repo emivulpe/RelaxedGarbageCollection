@@ -33,20 +33,21 @@ public class CountCreation implements EventHandler {
 
 	}
 
-	@Override
-	public int getNumObjects() {
-
-		return created.size();
-	}
 
 	@Override
 	public String finalReport(float total) {
 		// TODO Auto-generated method stub
-		return created.size() / total * 100 + " % objects were created successfully";
+		return (float)created.size() / total * 100 + " % objects were created successfully";
 	}
 	
 	@Override
 	public int getTotalObjects() {
+		return totalObjects;
+	}
+
+	@Override
+	public int getNumObjects() {
+		// TODO Auto-generated method stub
 		return created.size();
 	}
 

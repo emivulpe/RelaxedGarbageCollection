@@ -38,7 +38,7 @@ public class CountLegal implements EventHandler {
 	@Override
 	public String finalReport(float total) {
 
-		return legals.size() / total * 100 + " % objects were updated successfully";
+		return  (float)legals.size() / total * 100 + " % objects were updated successfully";
 	}
 	
 	@Override

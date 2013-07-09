@@ -31,14 +31,13 @@ public class ObjectEventRecord {
 	public final void updateRecord(final Event e) {
 		lastEvent = e;
 		numEvents++;
+
 		String currentEventStatus = e.getStatus();
-		if (currentEventStatus.equalsIgnoreCase("U")) {
+		if (e.getStatus().equalsIgnoreCase("U")) {
 			numUpdates++;
 		}
-		if (currentEventStatus.equalsIgnoreCase("M")) {
-			numMethodCalls++;
-		}
-		if (currentEventStatus.equalsIgnoreCase("D")) {
+
+		if (e.getStatus().equalsIgnoreCase("D")) {
 			isAlive = false;
 		}
 
@@ -47,6 +46,8 @@ public class ObjectEventRecord {
 	public final boolean isAlive() {
 		return isAlive;
 	}
+	
+	
 
 	public void killObject() {
 		isAlive = false;
