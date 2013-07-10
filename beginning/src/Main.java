@@ -21,6 +21,7 @@ public class Main {
 			InputStream gzipStream = new GZIPInputStream(fileStream);
 			ETParser parser = new ETParser(gzipStream);
 			parser.printReport();
+			fileStream.close();
 			long endOfProcess = System.currentTimeMillis();
 			long timeTakenInMillisecs = endOfProcess - startOfProcess;
 			long timeTakenInSeconds = timeTakenInMillisecs / 1000;
@@ -32,9 +33,10 @@ public class Main {
 		}
 
 		catch (IOException io) {
-			System.out.println("IOException");
+			System.out.println("IOException"+io);
 			System.exit(0);
 		}
+		
 
 
 

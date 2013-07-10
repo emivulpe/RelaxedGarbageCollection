@@ -1,38 +1,45 @@
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class ETParser {
-	private HashMap<String, ObjectEventRecord> hash;
+	/**
+	 * List of registered objects to handle events
+	 */
 	private List<EventHandler> handlers;
+	/**
+	 * This variable counts the lines read so far.
+	 */
 	private int lines;
-	private GlobalCounter global;
+	/**
+	 * TODO
+	 */
+	private SimulatedHeap heap;
 
-	public ETParser(InputStream gzipStream) {
-		handlers = new ArrayList();
-		hash = new HashMap<String, ObjectEventRecord>();
-		lines=0;
-		global=GlobalCounter.getGlobalCounterInstance();
-		EventFactory factory=new EventFactory();
+	public ETParser(InputStream input) {
+
+		handlers = new ArrayList<EventHandler>();
+		lines = 0;
+		heap = SimulatedHeap.getTheHeap();
+		EventFactory factory = new EventFactory();
 
 		initialiseHandlers();
-		Scanner inputScanner = new Scanner(gzipStream);
+		Scanner inputScanner = new Scanner(input);
 
 		while (inputScanner.hasNextLine()) {
 
 			String nextLine = inputScanner.nextLine();
 			lines++;
 			System.out.println(nextLine + " nextline");
-			Event event=factory.createEvent(nextLine);
+			Event event = factory.createEvent(nextLine);
 			notifyHandlers(event);
 
 		}
 
 	}
-	
-	public int getLines(){
+
+	public int getLines() {
 		return lines;
 	}
 
@@ -47,22 +54,19 @@ public class ETParser {
 		handlers.add(eh);
 	}
 
-	public int getTotalProcessedObjects() {
 
-		return global.getNumObjects();
+	public void printReport() {
+		for (EventHandler eh : handlers) {
+			if (eh instanceof EventReport) {
+				System.out.println(((EventReport) eh).finalReport());
 
-	}
-	
-	
-	public void printReport(){
-		for (EventHandler eh:handlers) {
-			System.out.println(eh.finalReport(getTotalProcessedObjects()));
+			}
+
 		}
 	}
 
-	
 	public void initialiseHandlers() {
-		registerHandler(global);
+		registerHandler(heap);
 		EventHandler creation = new CountCreation();
 		registerHandler(creation);
 		EventHandler legal = new CountLegal();
@@ -75,9 +79,8 @@ public class ETParser {
 		registerHandler(notBorns);
 		EventHandler logger = new ErrorLogger();
 		registerHandler(logger);
-		EventHandler livesize=new LiveSize();
+		EventHandler livesize = new LiveSize();
 		registerHandler(livesize);
-		
 
 	}
 

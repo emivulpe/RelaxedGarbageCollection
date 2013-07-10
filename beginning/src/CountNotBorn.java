@@ -1,20 +1,14 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class CountNotBorn implements EventHandler {
+public class CountNotBorn implements EventHandler, EventReport {
 	private Set<String> notBorn;
-	private int numNotBorns;
 
 	public CountNotBorn() {
 		notBorn = new HashSet<String>();
-		numNotBorns = 0;
 	}
 
-	public int getNumNotBorns() {
-		return numNotBorns;
-	}
-
-	public Set getNotBorns() {
+	public Set<String> getNotBorns() {
 		return notBorn;
 	}
 
@@ -22,7 +16,6 @@ public class CountNotBorn implements EventHandler {
 	public void handle(Event e) {
 		if (e.getCheck().equalsIgnoreCase("not born")) {
 			notBorn.add(e.getID());
-			numNotBorns++;
 			System.out.println("Object with id " + e.getID()
 					+ " is not born yet.");
 		}
@@ -30,18 +23,10 @@ public class CountNotBorn implements EventHandler {
 	}
 
 	@Override
-	public int getNumObjects() {
-		return notBorn.size();
-	}
-
-	@Override
-	public String finalReport(float total) {
-		return  (float)notBorn.size() / total * 100 + " % objects cause not born error";
-	}
-
-	@Override
-	public int getTotalObjects() {
-		return notBorn.size();
+	public String finalReport() {
+		return (float) notBorn.size()
+				/ SimulatedHeap.getTheHeap().getNumObjects() * PERCENTAGE
+				+ " % objects cause not born error";
 	}
 
 }

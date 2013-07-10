@@ -1,21 +1,15 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class CountDead implements EventHandler {
+public class CountDead implements EventHandler, EventReport {
 
 	private Set<String> dead;
-	private int numDead;
 
 	public CountDead() {
-		dead = new HashSet<String> ();
-		numDead = 0;
+		dead = new HashSet<String>();
 	}
 
-	public int getNumDead() {
-		return numDead;
-	}
-
-	public Set getDead() {
+	public Set<String> getDead() {
 		return dead;
 	}
 
@@ -23,27 +17,16 @@ public class CountDead implements EventHandler {
 	public void handle(Event e) {
 		if (e.getCheck().equalsIgnoreCase("dead")) {
 			dead.add(e.getID());
-			numDead++;
 			System.out.println("Object with id " + e.getID() + " is dead.");
 		}
 
 	}
 
 	@Override
-	public int getNumObjects() {
+	public String finalReport() {
 
-		return dead.size();
-	}
-
-	@Override
-	public String finalReport(float total) {
-
-		return  (float) dead.size() / total * 100 + " % objects cause dead error";
-	}
-	
-	@Override
-	public int getTotalObjects() {
-		return 0;
+		return (float) dead.size() / SimulatedHeap.getTheHeap().getNumObjects()
+				* PERCENTAGE + " % objects cause dead error";
 	}
 
 }
