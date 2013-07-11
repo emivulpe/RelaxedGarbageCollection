@@ -31,7 +31,6 @@ public class ETParser {
 
 			String nextLine = inputScanner.nextLine();
 			lines++;
-			System.out.println(nextLine + " nextline");
 			Event event = factory.createEvent(nextLine);
 			notifyHandlers(event);
 
