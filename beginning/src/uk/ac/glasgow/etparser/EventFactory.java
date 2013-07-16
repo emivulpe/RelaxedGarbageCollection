@@ -1,4 +1,7 @@
+package uk.ac.glasgow.etparser;
 import java.util.Scanner;
+
+import uk.ac.glasgow.etparser.events.*;
 
 
 public class EventFactory {
@@ -18,6 +21,10 @@ public class EventFactory {
 		
 		else if (type.equalsIgnoreCase("D")){ 
 			e=new DeathEvent(line);
+		}
+		
+		else if (type.equalsIgnoreCase("M")) {
+			e = new MethodEvent(line);
 		}
 		
 		else {

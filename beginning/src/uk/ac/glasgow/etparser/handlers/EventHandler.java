@@ -1,4 +1,7 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.ArrayList;
+
+import uk.ac.glasgow.etparser.events.Event;
 
 /**
  * All classes which respond to events must implement this interface.

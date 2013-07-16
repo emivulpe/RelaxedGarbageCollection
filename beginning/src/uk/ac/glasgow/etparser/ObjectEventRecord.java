@@ -1,3 +1,7 @@
+package uk.ac.glasgow.etparser;
+
+import uk.ac.glasgow.etparser.events.Event;
+
 public class ObjectEventRecord {
 	private Event lastEvent;
 	private int numEvents, numUpdates, numMethodCalls;
@@ -35,6 +39,10 @@ public class ObjectEventRecord {
 		String currentEventStatus = e.getStatus();
 		if (e.getStatus().equalsIgnoreCase("U")) {
 			numUpdates++;
+		}
+		
+		if (e.getStatus().equalsIgnoreCase("M")) {
+			numMethodCalls++;
 		}
 
 		if (e.getStatus().equalsIgnoreCase("D")) {

@@ -1,3 +1,4 @@
+package uk.ac.glasgow.etparser.events;
 
 public class UninterestingEvent extends Event {
 	

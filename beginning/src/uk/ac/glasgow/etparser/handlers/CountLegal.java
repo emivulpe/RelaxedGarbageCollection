@@ -1,5 +1,8 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.HashSet;
 import java.util.Set;
+
+import uk.ac.glasgow.etparser.events.Event;
 
 public class CountLegal implements EventHandler, EventReport {
 	private Set<String> legals;
@@ -15,8 +18,8 @@ public class CountLegal implements EventHandler, EventReport {
 	@Override
 	public void handle(Event e) {
 		if (e.getCheck().equalsIgnoreCase("legal")) {
-			legals.add(e.getID());
-			System.out.println("Object with id " + e.getID()
+			legals.add(e.getObjectID());
+			System.out.println("Object with id " + e.getObjectID()
 					+ " has been updated.");
 		}
 

@@ -1,4 +1,8 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.HashMap;
+
+import uk.ac.glasgow.etparser.events.CreationEvent;
+import uk.ac.glasgow.etparser.events.Event;
 
 public class LiveSize implements EventHandler {
 
@@ -34,17 +38,17 @@ public class LiveSize implements EventHandler {
 
 	@Override
 	public void handle(Event e) {
-		if (e.status.equalsIgnoreCase("A")) {
+		if (e.getStatus().equalsIgnoreCase("A")) {
 			CreationEvent ce = (CreationEvent) e;
-			objectSizes.put(e.getID(), ce.getSize());
+			objectSizes.put(e.getObjectID(), ce.getSize());
 			liveSize += ce.getSize();
 			allocatedMemSize += ce.getSize();
 			numCreationsOrDeaths++;
 
 		}
-		if (e.getStatus().equalsIgnoreCase("D")&&objectSizes.get(e.getID())!=null) {
+		if (e.getStatus().equalsIgnoreCase("D")&&objectSizes.get(e.getObjectID())!=null) {
 			numCreationsOrDeaths++;
-			liveSize -= objectSizes.get(e.getID());
+			liveSize -= objectSizes.get(e.getObjectID());
 			assert (liveSize >= 0);
 
 		}

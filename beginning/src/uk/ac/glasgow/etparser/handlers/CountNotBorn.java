@@ -1,5 +1,8 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.HashSet;
 import java.util.Set;
+
+import uk.ac.glasgow.etparser.events.Event;
 
 public class CountNotBorn implements EventHandler, EventReport {
 	private Set<String> notBorn;
@@ -15,8 +18,8 @@ public class CountNotBorn implements EventHandler, EventReport {
 	@Override
 	public void handle(Event e) {
 		if (e.getCheck().equalsIgnoreCase("not born")) {
-			notBorn.add(e.getID());
-			System.out.println("Object with id " + e.getID()
+			notBorn.add(e.getObjectID());
+			System.out.println("Object with id " + e.getObjectID()
 					+ " is not born yet.");
 		}
 

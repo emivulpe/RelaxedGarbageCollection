@@ -1,5 +1,8 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.HashSet;
 import java.util.Set;
+
+import uk.ac.glasgow.etparser.events.Event;
 
 public class CountMultipleCreations implements EventHandler, EventReport {
 	private Set<String> multiples;
@@ -15,8 +18,8 @@ public class CountMultipleCreations implements EventHandler, EventReport {
 	@Override
 	public void handle(Event e) {
 		if (e.getCheck().equalsIgnoreCase("created")) {
-			multiples.add(e.getID());
-			System.out.println("Object with id " + e.getID()
+			multiples.add(e.getObjectID());
+			System.out.println("Object with id " + e.getObjectID()
 					+ " has been created more than once.");
 		}
 

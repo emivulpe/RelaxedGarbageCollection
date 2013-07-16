@@ -1,5 +1,8 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.HashSet;
 import java.util.Set;
+
+import uk.ac.glasgow.etparser.events.Event;
 
 public class CountCreation implements EventHandler, EventReport {
 	private Set<String> created;
@@ -16,8 +19,8 @@ public class CountCreation implements EventHandler, EventReport {
 	public void handle(Event e) {
 
 		if (e.getCheck().equalsIgnoreCase("creation")) {
-			created.add(e.getID());
-			System.out.println("Object with id " + e.getID()
+			created.add(e.getObjectID());
+			System.out.println("Object with id " + e.getObjectID()
 					+ " has been created.");
 		}
 

@@ -1,5 +1,8 @@
+package uk.ac.glasgow.etparser.handlers;
 import java.util.HashSet;
 import java.util.Set;
+
+import uk.ac.glasgow.etparser.events.Event;
 
 public class CountDead implements EventHandler, EventReport {
 
@@ -16,8 +19,8 @@ public class CountDead implements EventHandler, EventReport {
 	@Override
 	public void handle(Event e) {
 		if (e.getCheck().equalsIgnoreCase("dead")) {
-			dead.add(e.getID());
-			System.out.println("Object with id " + e.getID() + " is dead.");
+			dead.add(e.getObjectID());
+			System.out.println("Object with id " + e.getObjectID() + " is dead.");
 		}
 
 	}

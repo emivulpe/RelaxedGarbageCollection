@@ -1,8 +1,9 @@
+package uk.ac.glasgow.etparser.events;
 import java.util.Scanner;
 
 public abstract class Event {
 
-	protected String id;
+	protected String objectId;
 	protected String allocationTime;
 	protected String status;
 
@@ -19,16 +20,16 @@ public abstract class Event {
 		allocationTime = scanner.next();
 		if (status.equalsIgnoreCase("A") || status.equalsIgnoreCase("R")
 				|| status.equalsIgnoreCase("D")) {
-			id = scanner.next();
+			objectId = scanner.next();
 		} else {
 			scanner.next();
-			id = scanner.next();
+			objectId = scanner.next();
 		}
 
 	}
 
-	public String getID() {
-		return id;
+	public String getObjectID() {
+		return objectId;
 	}
 
 	public String getAllocationTime() {

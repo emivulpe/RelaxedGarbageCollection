@@ -1,3 +1,4 @@
+package uk.ac.glasgow.etparser.events;
 import java.util.Scanner;
 
 
@@ -12,7 +13,7 @@ public class CreationEvent extends Event{
 		scan.next();
 		scan.next();
 		String s=scan.next();
-		size = Integer.parseInt(s.trim(), 16 /* radix */ ); 
+		size = Integer.parseInt(s.trim(), 16); 
 		
 		status = "A";
 	}
