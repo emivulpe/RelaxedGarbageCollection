@@ -27,6 +27,13 @@ public abstract class Event {
 		}
 
 	}
+	
+	public Event (Event e){
+		objectId=e.getObjectID();
+		allocationTime=e.getAllocationTime();
+		status=e.getStatus();
+		
+	}
 
 	public String getObjectID() {
 		return objectId;

@@ -18,6 +18,11 @@ public class CreationEvent extends Event{
 		status = "A";
 	}
 	
+	public CreationEvent(Event e){
+		super(e);
+		size=0;
+	}
+	
 	public int getSize(){
 		return size;
 	}
