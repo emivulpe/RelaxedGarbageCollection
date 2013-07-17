@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.glasgow.etparser.events.CreationEvent;
+import uk.ac.glasgow.etparser.handlers.SimulatedHeap;
 
 public class ETParserTest {
 
@@ -21,7 +22,7 @@ public class ETParserTest {
 
 	@Before
 	public void setUp() throws Exception {
-		is=new FileInputStream("C:/Users/Emi/Desktop/traces/not born.txt");
+		is=new FileInputStream("C:/Users/Emi/Desktop/traces/beforeborn.txt");
 		parser=new ETParser(is);
 	}
 
@@ -31,6 +32,9 @@ public class ETParserTest {
 	public void testConstructor() {
 		ETParser et=new ETParser(is);
 		assertEquals(0,et.getLines());
+		assertTrue(et.getHandlers()!=null);
+		assertTrue(SimulatedHeap.getTheHeap()!=null);
+		
 	}
 	
 	@Test
